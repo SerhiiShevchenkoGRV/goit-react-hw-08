@@ -9,9 +9,10 @@ a:hover {
 
 body {
   font-family: "Roboto", sans-serif;
-  display: flex;
+  /* display: flex;
+  justify-content: center;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100vh; */
 }
 
 h1 {
@@ -26,13 +27,5 @@ p {
 }
 
 .appCont {
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
-  flex-direction: column;
-  margin: 0 auto;
-  padding: 0 32px;
-  gap: 30px;
-  width: 100%;
-  margin: 0 auto;
+  padding-bottom: 24px;
 }

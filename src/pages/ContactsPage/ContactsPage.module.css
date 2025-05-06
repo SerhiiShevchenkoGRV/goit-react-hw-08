@@ -1,0 +1,10 @@
+.contactsCont {
+  display: flex;
+  flex-direction: column;
+  padding: 0 32px;
+  gap: 30px;
+}
+
+.title {
+  font-size: 34px;
+}
