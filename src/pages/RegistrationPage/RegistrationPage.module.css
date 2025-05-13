@@ -1,44 +1,7 @@
-.regFormCont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 60px;
-}
-
-.regForm {
+.regPage {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  border: 2px solid black;
-  border-radius: 10px;
-  padding: 20px;
-  font-size: 16px;
-}
-
-.label {
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-  padding-top: 8px;
-}
-
-.input {
-  height: 20px;
-  width: 350px;
-  font-size: 14px;
-  padding: 4px 8px;
-}
-
-.regBtn {
-  font-size: 18px;
-  padding: 4px 8px;
-  border-radius: 3px;
-}
-
-.regBtn:hover,
-.regBtn:focus {
-  cursor: pointer;
-  background-color: lightgray;
+  gap: 10px;
 }
