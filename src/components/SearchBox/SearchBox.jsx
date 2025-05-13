@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import clsx from "clsx";
 import s from "./SearchBox.module.css";
-import { selectNameFilter } from "../../redux/filters/selectors";
+import { selectContactFilter } from "../../redux/filters/selectors";
 import { changeFilter } from "../../redux/filters/slice";
 
 export default function SearchBox() {
-  const nameFilter = useSelector(selectNameFilter);
+  const contactFilter = useSelector(selectContactFilter);
   const dispatch = useDispatch();
   const handleChange = (e) => {
     dispatch(changeFilter(e.target.value));
@@ -14,11 +14,11 @@ export default function SearchBox() {
 
   return (
     <div>
-      <p>Find contacts by name</p>
+      <p>Find contacts by name or number</p>
       <input
         type="text"
         className={clsx(s.srchInpt)}
-        value={nameFilter}
+        value={contactFilter}
         onChange={handleChange}
       />
     </div>
