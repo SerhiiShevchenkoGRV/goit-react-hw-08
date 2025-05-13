@@ -1,4 +1,14 @@
+.homeCont {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 0 32px;
+}
+
 .homeTitle {
-  font-size: 34px;
-  margin-bottom: 24px;
+  font-size: 30px;
+}
+
+.homeDesc {
+  font-size: 22px;
 }

@@ -31,16 +31,16 @@ export default function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute>
+                <LoginPage />
+              </RestrictedRoute>
+            }
+          />
         </Route>
-        <Route path="/register" element={<RegistrationPage />} />
-        <Route
-          path="/login"
-          element={
-            <RestrictedRoute>
-              <LoginPage />
-            </RestrictedRoute>
-          }
-        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

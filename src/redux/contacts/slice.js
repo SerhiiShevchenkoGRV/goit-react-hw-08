@@ -53,9 +53,7 @@ const slice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(logout.fulfilled, () => {
-        initialState;
-      });
+      .addCase(logout.fulfilled, () => initialState);
   },
 });
 
