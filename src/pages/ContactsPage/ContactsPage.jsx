@@ -6,6 +6,7 @@ import ContactForm from "../../components/ContactForm/ContactForm";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import ContactList from "../../components/ContactList/ContactList";
 import s from "./ContactsPage.module.css";
+import ContactModal from "../../components/ContactModal/ContactModal";
 
 export default function ContactsPage() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ export default function ContactsPage() {
       {(loading && <h1>Loading...</h1>) ||
         (error && <h1>{error}</h1>) ||
         (!loading && !error && <ContactList />)}
+      <ContactModal />
     </div>
   );
 }

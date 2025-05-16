@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { login, logout, refreshUser, register } from "./operations";
+import toast from "react-hot-toast";
+import { act } from "react";
 
 const initialState = {
   user: {
@@ -16,17 +18,36 @@ const slice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
+      .addCase(register.pending, (state, action) => {
+        // toast("pending");
+      })
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        toast.success("Successful registration");
+      })
+      .addCase(register.rejected, (state, action) => {
+        toast.error(action.payload);
+      })
+      .addCase(login.pending, (state, action) => {
+        // toast("pending");
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
       })
+      .addCase(login.rejected, (state, action) => {
+        // toast.error(action.payload);
+      })
+      .addCase(logout.pending, () => {
+        // toast("pending");
+      })
       .addCase(logout.fulfilled, () => initialState)
+      .addCase(logout.rejected, (state, action) => {
+        toast.error(action.payload);
+      })
       .addCase(refreshUser.pending, (state, action) => {
         state.isRefreshing = true;
       })

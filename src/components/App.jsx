@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import HomePage from "../pages/HomePage/HomePage";
 import ContactsPage from "../pages/ContactsPage/ContactsPage";
 import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
@@ -20,6 +21,7 @@ export default function App() {
   }, [dispatch]);
   return isRefreshing ? null : (
     <div className="appCont">
+      <Toaster />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />

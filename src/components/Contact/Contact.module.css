@@ -11,8 +11,23 @@
 
 .contactItems {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.contForm {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.contFields {
+  display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .userDesc {
@@ -33,7 +48,15 @@
   fill: black;
 }
 
-.delBtn {
+.btnCont {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.delBtn,
+.editBtn {
   width: 60px;
   height: 24px;
+  cursor: pointer;
 }

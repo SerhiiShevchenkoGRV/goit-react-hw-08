@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
 import { login } from "../../redux/auth/operations";
+import toast from "react-hot-toast";
 import s from "./LoginForm.module.css";
 
 export default function LoginForm() {
@@ -13,14 +14,13 @@ export default function LoginForm() {
   };
 
   const handleSubmit = (values, actions) => {
-    console.log(values);
     dispatch(login(values))
       .unwrap()
       .then((res) => {
-        alert(`Welcome, ${res.user.email}`);
+        toast.success(`Welcome, ${res.user.email}`);
         navigate("/contacts", { replace: true });
       })
-      .catch(() => alert("Invalid data"));
+      .catch(() => toast.error("Invalid data"));
     actions.resetForm();
   };
 
