@@ -1,88 +1,90 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { FaUser, FaPhoneAlt } from "react-icons/fa";
 import { openModal } from "../../redux/modal/slice";
-import { cancelEdit, changeOnEdit } from "../../redux/contact/slice";
-import {
-  selectId,
-  selectName,
-  selectNumber,
-} from "../../redux/contact/selectors";
-import { Field, Form, Formik } from "formik";
-import { useId } from "react";
-import { editContact } from "../../redux/contact/operations";
+import { editContact } from "../../redux/contacts/operations";
 import s from "./Contact.module.css";
 
-export default function Contact({ contact }) {
-  const { name, number, id } = contact;
-  const initialValues = contact;
-  const nameFieldId = useId();
-  const numberFieldId = useId();
+export default function Contact({ contact, editableId, setEditableId }) {
+  const { id } = contact;
+  const [initValue, setInitValue] = useState(contact);
+  const [value, setValue] = useState(contact);
   const dispatch = useDispatch();
-  const currentId = useSelector(selectId);
-  // const newName = useSelector(selectName);
-  // const newNumber = useSelector(selectNumber);
+  const isEditing = editableId === id;
+  const cardRef = useRef();
 
   const handleOpen = () => dispatch(openModal(id));
   const handleEdit = () => {
-    if (currentId !== null) {
-      return dispatch(cancelEdit());
+    if (isEditing) {
+      if (value !== initValue) {
+        dispatch(editContact(value));
+        setInitValue(value);
+      }
+      setEditableId(null);
+    } else {
+      setEditableId(id);
     }
-    dispatch(changeOnEdit(id));
   };
-  const onEdit = currentId === id;
 
-  const handleSubmit = (values) => {
-    const { name, number } = values;
-    dispatch(editContact({ name, number, id }));
-    dispatch(cancelEdit());
+  const handleChange = (e) => {
+    const { name, value: inputValue } = e.target;
+    setValue((prev) => ({
+      ...prev,
+      [name]: inputValue,
+    }));
   };
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (isEditing && cardRef.current && !cardRef.current.contains(e.target)) {
+        setEditableId(null);
+        setValue(initValue);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isEditing, setEditableId]);
 
   return (
-    <div className={s.contactCard}>
+    <div className={s.contactCard} ref={cardRef}>
       <div className={s.contactItems}>
-        {onEdit ? (
-          <Formik
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            enableReinitialize
-          >
-            <Form className={s.contForm}>
-              <div className={s.contFields}>
-                <Field type="text" name="name" id={nameFieldId} />
-                <Field type="tel" name="number" id={numberFieldId} />
-              </div>
-              <div className={s.btnCont}>
-                <button className={s.editBtn} type="submit">
-                  Save
-                </button>
-                <button className={s.delBtn} type="button" onClick={handleOpen}>
-                  Delete
-                </button>
-              </div>
-            </Form>
-          </Formik>
-        ) : (
-          <>
-            <div className={s.contFields}>
-              <p className={s.userDesc}>
-                <FaUser className={s.userIcon} />
-                {name}
-              </p>
-              <a href={`tel:${number}`} className={s.userTel}>
-                <FaPhoneAlt className={s.telIcon} />
-                {number}
-              </a>
-            </div>
-            <div className={s.btnCont}>
-              <button className={s.editBtn} onClick={handleEdit}>
-                Edit
-              </button>
-              <button className={s.delBtn} onClick={handleOpen}>
-                Delete
-              </button>
-            </div>
-          </>
-        )}
+        <div className={s.contFields}>
+          {isEditing ? (
+            <input
+              type="text"
+              name="name"
+              value={value.name}
+              onChange={handleChange}
+            ></input>
+          ) : (
+            <p className={s.userDesc}>
+              <FaUser className={s.userIcon} />
+              {value.name}
+            </p>
+          )}
+          {isEditing ? (
+            <input
+              type="tel"
+              name="number"
+              value={value.number}
+              onChange={handleChange}
+            ></input>
+          ) : (
+            <a href={`tel:${value.number}`} className={s.userTel}>
+              <FaPhoneAlt className={s.telIcon} />
+              {value.number}
+            </a>
+          )}
+        </div>
+        <div className={s.btnCont}>
+          <button className={s.editBtn} onClick={handleEdit}>
+            {isEditing ? "Save" : "Edit"}
+          </button>
+          <button className={s.delBtn} onClick={handleOpen}>
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );

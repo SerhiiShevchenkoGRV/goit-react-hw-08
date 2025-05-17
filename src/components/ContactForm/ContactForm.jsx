@@ -3,7 +3,6 @@ import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { addContact } from "../../redux/contacts/operations";
-import clsx from "clsx";
 import s from "./ContactForm.module.css";
 
 export default function ContactForm() {
@@ -42,38 +41,38 @@ export default function ContactForm() {
       onSubmit={handleSubmit}
       validationSchema={FeedbackSchema}
     >
-      <Form className={clsx(s.contactForm)}>
-        <div className={clsx(s.nameCont)}>
+      <Form className={s.contactForm}>
+        <div className={s.nameCont}>
           <label htmlFor={nameFieldId}>Name</label>
           <Field
             type="text"
             name="username"
             id={nameFieldId}
-            className={clsx(s.nameInput)}
+            className={s.nameInput}
           />
           <ErrorMessage
             name="username"
             component="span"
-            className={clsx(s.nameError)}
+            className={s.nameError}
           />
         </div>
 
-        <div className={clsx(s.numberCont)}>
+        <div className={s.numberCont}>
           <label htmlFor={numberFieldId}>Number</label>
           <Field
             type="tel"
             name="number"
             id={numberFieldId}
-            className={clsx(s.telInput)}
+            className={s.telInput}
           />
           <ErrorMessage
             name="number"
             component="span"
-            className={clsx(s.numberError)}
+            className={s.numberError}
           />
         </div>
 
-        <button type="submit" className={clsx(s.submitBtn)}>
+        <button type="submit" className={s.submitBtn}>
           Add contact
         </button>
       </Form>

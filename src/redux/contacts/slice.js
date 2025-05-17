@@ -3,6 +3,7 @@ import {
   fetchContacts,
   deleteContact,
   addContact,
+  editContact,
 } from "../contacts/operations.js";
 import { logout } from "../auth/operations.js";
 import toast from "react-hot-toast";
@@ -51,7 +52,9 @@ const slice = createSlice({
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.items = state.items.filter((item) => item.id !== action.payload);
+        state.items = state.items.filter(
+          (contact) => contact.id !== action.payload
+        );
         toast.success("Contact successfully deleted");
       })
       .addCase(deleteContact.rejected, (state, action) => {
@@ -59,7 +62,18 @@ const slice = createSlice({
         state.error = action.payload;
         toast.error(action.payload);
       })
-      // .addCase(editContact.fulfilled, (state, action) => {})
+      .addCase(editContact.pending, (state, action) => {
+        // toast('pending');
+      })
+      .addCase(editContact.fulfilled, (state, action) => {
+        const item = state.items.find((item) => item.id === action.payload.id);
+        item.name = action.payload.name;
+        item.number = action.payload.number;
+        toast.success("Contact successfully edited");
+      })
+      .addCase(editContact.rejected, (state, action) => {
+        toast.error(action.payload);
+      })
       .addCase(logout.pending, () => {
         // toast("pending");
       })
