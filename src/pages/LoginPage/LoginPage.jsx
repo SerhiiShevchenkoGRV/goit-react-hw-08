@@ -6,7 +6,10 @@ export default function LoginPage() {
   return (
     <div className={s.loginPage}>
       <LoginForm />
-      <Link to="/register">Create account </Link>
+      <div className={s.redirectCont}>
+        <p>Don't have an account?</p>
+        <Link to="/register">Create account </Link>
+      </div>
     </div>
   );
 }
