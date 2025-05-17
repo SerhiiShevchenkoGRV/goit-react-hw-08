@@ -1,10 +1,10 @@
-import Modal from "react-modal";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectContactId, selectOpenModal } from "../../redux/modal/selectors";
 import { deleteContact } from "../../redux/contacts/operations";
 import { closeModal } from "../../redux/modal/slice";
+import { selectContactId, selectOpenModal } from "../../redux/modal/selectors";
+import Modal from "react-modal";
 import s from "./ContactModal.module.css";
-import { useEffect } from "react";
 
 Modal.setAppElement("#root");
 
