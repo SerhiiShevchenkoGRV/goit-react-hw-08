@@ -16,8 +16,7 @@ export default function LoginForm() {
   const handleSubmit = (values, actions) => {
     dispatch(login(values))
       .unwrap()
-      .then((res) => {
-        toast.success(`Welcome, ${res.user.email}`);
+      .then(() => {
         navigate("/contacts", { replace: true });
       })
       .catch(() => toast.error("Invalid data"));

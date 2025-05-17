@@ -8,7 +8,7 @@ export default function UserMenu() {
   const dispatch = useDispatch();
   return (
     <div className={s.userMenu}>
-      <h2 className={s.userName}>Welcome, {user.email}</h2>
+      <h2 className={s.userName}>Welcome, {user.name}</h2>
       <button className={s.logoutBtn} onClick={() => dispatch(logout())}>
         Logout
       </button>

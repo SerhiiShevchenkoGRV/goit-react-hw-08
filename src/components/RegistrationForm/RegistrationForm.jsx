@@ -3,8 +3,11 @@ import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
 
 import s from "./RegistrationForm.module.css";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function RegistrationForm() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const initialValues = {
     name: "",
@@ -13,8 +16,13 @@ export default function RegistrationForm() {
   };
 
   const handleSubmit = (values, actions) => {
-    console.log(values);
-    dispatch(register(values));
+    dispatch(register(values))
+      .unwrap()
+      .then(() => {
+        navigate("/contacts", { replace: true });
+      })
+      .catch(() => toast.error("Invalid data"));
+
     actions.resetForm();
   };
 

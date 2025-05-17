@@ -16,7 +16,7 @@ export default function HomePage() {
         already has some sample contacts added
       </p>
       <p className={s.homeDesc}>
-        <b>Email:</b> test-contacts@phb.com <br /> <br />
+        <b>Email:</b> testcontacts@phb.com <br /> <br />
         <b>Password:</b> 1234567
       </p>
     </div>
