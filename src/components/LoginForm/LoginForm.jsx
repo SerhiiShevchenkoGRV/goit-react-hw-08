@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
 import { login } from "../../redux/auth/operations";
 import toast from "react-hot-toast";
@@ -7,10 +7,7 @@ import s from "./LoginForm.module.css";
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
-  const from = location.state?.from?.pathname || "/contacts";
-
   const initialValues = {
     email: "",
     password: "",
@@ -20,7 +17,7 @@ export default function LoginForm() {
     dispatch(login(values))
       .unwrap()
       .then(() => {
-        navigate(from, { replace: true });
+        navigate("/contacts", { replace: true });
       })
       .catch(() => toast.error("Invalid data"));
     actions.resetForm();
